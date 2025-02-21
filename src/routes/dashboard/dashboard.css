@@ -5,9 +5,12 @@
   padding: 20px;
 }
 
-.dashboard-header {
-  width: 100%;
+.dashboard-layout {
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  width: 100%;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
 }
