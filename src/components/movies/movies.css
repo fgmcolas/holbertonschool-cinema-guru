@@ -1,0 +1,41 @@
+.tag {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 15px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.tag.selected {
+  background-color: #ff4b5c;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.movie-card {
+  padding: 15px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.movie-card h3 {
+  margin: 10px 0;
+}
+
+.movie-icons {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.movie-icons .active {
+  color: gold;
+}
