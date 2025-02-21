@@ -1,5 +1,6 @@
 import React from "react";
 import "./general.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Input = ({ label, type, className, value, setValue, icon, inputAttributes }) => {
     const handleInput = (event) => {
@@ -8,8 +9,12 @@ const Input = ({ label, type, className, value, setValue, icon, inputAttributes 
 
     return (
         <div className={`input-container ${className}`}>
-            {label && <label>{label}</label>}
-            {icon && <span className="input-icon">{icon}</span>}
+            {label && (
+                <label>
+                    {icon && <FontAwesomeIcon icon={icon} className="input-icon" />}
+                    {label}
+                </label>
+            )}
             <input type={type} value={value} onChange={handleInput} {...inputAttributes} />
         </div>
     );
