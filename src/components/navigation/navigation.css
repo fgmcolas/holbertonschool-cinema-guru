@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.header img {
+  border-radius: 50%;
+}
+
+.header p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.header span {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.header span:hover {
+  color: #ff4b5c;
+}
