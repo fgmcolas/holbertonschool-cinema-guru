@@ -10,7 +10,7 @@ const Login = ({ setIsLoggedIn, setUserUsername }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post("/api/auth/login", { username, password })
+        axios.post("http://localhost:8000/api/auth/login", { username, password })
             .then((response) => {
                 localStorage.setItem("accessToken", response.data.token);
                 setUserUsername(username);

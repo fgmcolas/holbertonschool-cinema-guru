@@ -26,7 +26,15 @@ function App() {
     }
   }, []);
 
-  return <div className="App">{isLoggedIn ? <Dashboard /> : <Authentication />}</div>;
+  return (
+    <div className="App">
+      {isLoggedIn ? (
+        <Dashboard userUsername={userUsername} setIsLoggedIn={setIsLoggedIn} />
+      ) : (
+        <Authentication setIsLoggedIn={setIsLoggedIn} setUserUsername={setUserUsername} />
+      )}
+    </div>
+  );
 }
 
 export default App;
