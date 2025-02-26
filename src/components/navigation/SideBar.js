@@ -4,26 +4,24 @@ import "./navigation.css";
 import Activity from "../Activity";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faHeart, faClock, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faFolder, faStar, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const SideBar = () => {
     const [selected, setSelected] = useState("home");
-    const [small, setSmall] = useState(true);
     const [activities, setActivities] = useState([]);
-    const [showActivities, setShowActivities] = useState(false);
     const navigate = useNavigate();
     const setPage = (pageName) => {
         setSelected(pageName);
-        const routes = {
-            home: "/home",
-            favorites: "/favorites",
-            watchlater: "/watchlater",
-        };
-        navigate(routes[pageName]);
+        navigate(`/${pageName}`);
     };
 
     useEffect(() => {
-        axios.get("/api/activity")
+        const token = localStorage.getItem("accessToken");
+        if (!token) return;
+
+        axios.get("http://localhost:8000/api/activity", {
+            headers: { Authorization: `Bearer ${token}` }
+        })
             .then((response) => {
                 setActivities(response.data);
             })
@@ -31,33 +29,18 @@ const SideBar = () => {
     }, []);
 
     return (
-        <nav className={`sidebar ${small ? "" : "expanded"}`}>
-            <div className="toggle-btn" onClick={() => setSmall(!small)}>
-                <FontAwesomeIcon icon={faBars} />
-            </div>
+        <nav className="sidebar">
             <ul>
                 <li className={selected === "home" ? "active" : ""} onClick={() => setPage("home")}>
-                    <FontAwesomeIcon icon={faHome} /> {small ? "" : "Home"}
+                    <FontAwesomeIcon icon={faFolder} /> Library
                 </li>
                 <li className={selected === "favorites" ? "active" : ""} onClick={() => setPage("favorites")}>
-                    <FontAwesomeIcon icon={faHeart} /> {small ? "" : "Favorites"}
+                    <FontAwesomeIcon icon={faStar} /> Favorites
                 </li>
                 <li className={selected === "watchlater" ? "active" : ""} onClick={() => setPage("watchlater")}>
-                    <FontAwesomeIcon icon={faClock} /> {small ? "" : "Watch Later"}
+                    <FontAwesomeIcon icon={faClock} /> Watch Later
                 </li>
             </ul>
-            <div className="activities">
-                <h4 onClick={() => setShowActivities(!showActivities)}>
-                    {small ? "🔄" : "Recent Activities"}
-                </h4>
-                {showActivities && (
-                    <ul>
-                        {activities.slice(0, 10).map((activity, index) => (
-                            <Activity key={index} activity={activity} />
-                        ))}
-                    </ul>
-                )}
-            </div>
         </nav>
     );
 };
