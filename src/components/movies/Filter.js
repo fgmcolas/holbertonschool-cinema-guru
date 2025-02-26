@@ -14,10 +14,10 @@ const Filter = ({ minYear, setMinYear, maxYear, setMaxYear, sort, setSort, genre
     return (
         <div className="filter-container">
             <SearchBar title={title} setTitle={setTitle} />
-            <Input label="Min Year" type="number" value={minYear} setValue={setMinYear} />
-            <Input label="Max Year" type="number" value={maxYear} setValue={setMaxYear} />
+            <Input label="Min Date" type="number" value={minYear} setValue={setMinYear} />
+            <Input label="Max Date" type="number" value={maxYear} setValue={setMaxYear} />
             <SelectInput
-                label="Sort By"
+                label="Sort"
                 options={["latest", "oldest", "highestrated", "lowestrated"]}
                 value={sort}
                 setValue={setSort}
