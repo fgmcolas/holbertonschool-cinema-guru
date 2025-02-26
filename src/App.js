@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import axios from "axios";
 import Dashboard from "./routes/dashboard/Dashboard";
 import Authentication from "./routes/auth/Authentication";
 
