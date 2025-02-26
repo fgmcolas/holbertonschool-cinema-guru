@@ -11,11 +11,18 @@ const Header = ({ userUsername, setIsLoggedIn }) => {
 
     return (
         <nav className="header">
-            <img src="https://picsum.photos/100/100" alt="User Avatar" />
-            <p>Welcome, {userUsername}!</p>
-            <span onClick={handleLogout}>
-                <FontAwesomeIcon icon={faSignOutAlt} /> Logout
-            </span>
+            <div className="header-left">
+                <h1 className="header-title">Cinema Guru</h1>
+            </div>
+            <div className="header-right">
+                <div className="user-info">
+                    <img src="https://picsum.photos/100/100" alt="User Avatar" />
+                    <p>Welcome, <strong>{userUsername}</strong>!</p>
+                </div>
+                <span className="logout-btn" onClick={handleLogout}>
+                    <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+                </span>
+            </div>
         </nav>
     );
 };
