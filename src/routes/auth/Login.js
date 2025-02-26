@@ -8,16 +8,23 @@ import Button from "../../components/general/Button";
 const Login = ({ setIsLoggedIn, setUserUsername }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
+    const [errorMessage, setErrorMessage] = useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post("http://localhost:8000/api/auth/login", { username, password })
             .then((response) => {
-                localStorage.setItem("accessToken", response.data.token);
-                setUserUsername(username);
-                setIsLoggedIn(true);
+                if (response.data.accessToken) {
+                    localStorage.setItem("accessToken", response.data.accessToken);
+                    setUserUsername(username);
+                    setIsLoggedIn(true);
+                } else {
+                    setErrorMessage("Invalid login response, missing token.");
+                }
             })
-            .catch((error) => console.error("Login failed:", error));
+            .catch((error) => {
+                console.error("Login failed:", error);
+                setErrorMessage("Login failed. Please check your credentials.");
+            });
     };
 
     return (
@@ -27,20 +34,33 @@ const Login = ({ setIsLoggedIn, setUserUsername }) => {
                 Username:
             </label>
             <div className="input-group">
-                <input className="auth-input" type="text" placeholder="" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                <input
+                    className="auth-input"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
             </div>
             <label className="input-label">
                 <FontAwesomeIcon icon={faKey} className="input-icon" />
                 Password:
             </label>
             <div className="input-group">
-                <input className="auth-input" type="password" placeholder="" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <input
+                    className="auth-input"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
             </div>
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
             <Button
                 label="Sign In"
                 icon={faKey}
                 className="auth-button"
-                onClick={handleSubmit}
+                type="submit"
             />
         </form>
     );
