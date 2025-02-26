@@ -3,6 +3,7 @@ import "./auth.css";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
+import Button from "../../components/general/Button";
 
 const Register = ({ setIsLoggedIn, setUserUsername }) => {
     const [username, setUsername] = useState("");
@@ -26,19 +27,21 @@ const Register = ({ setIsLoggedIn, setUserUsername }) => {
                 Username:
             </label>
             <div className="input-group">
-                <input className="auth-input" type="text" placeholder="" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                <input className="auth-input" type="text" placeholder="Enter your username" value={username} onChange={(e) => setUsername(e.target.value)} required />
             </div>
             <label className="input-label">
                 <FontAwesomeIcon icon={faKey} className="input-icon" />
                 Password:
             </label>
             <div className="input-group">
-                <input className="auth-input" type="password" placeholder="" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <input className="auth-input" type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </div>
-            <button className="auth-button" type="submit">
-                <FontAwesomeIcon icon={faKey} className="button-icon" />
-                Sign Up
-            </button>
+            <Button
+                label="Sign Up"
+                icon={faKey}
+                className="auth-button"
+                onClick={handleSubmit}
+            />
         </form>
     );
 };

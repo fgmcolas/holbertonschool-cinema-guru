@@ -3,6 +3,7 @@ import "./auth.css";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
+import Button from "../../components/general/Button";
 
 const Login = ({ setIsLoggedIn, setUserUsername }) => {
     const [username, setUsername] = useState("");
@@ -35,10 +36,12 @@ const Login = ({ setIsLoggedIn, setUserUsername }) => {
             <div className="input-group">
                 <input className="auth-input" type="password" placeholder="" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </div>
-            <button className="auth-button" type="submit">
-                <FontAwesomeIcon icon={faKey} className="button-icon" />
-                Sign In
-            </button>
+            <Button
+                label="Sign In"
+                icon={faKey}
+                className="auth-button"
+                onClick={handleSubmit}
+            />
         </form>
     );
 };

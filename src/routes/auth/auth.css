@@ -90,6 +90,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
+  white-space: nowrap;
   background: #b00020;
   color: white;
   border: none;
