@@ -4,39 +4,52 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faClock } from "@fortawesome/free-solid-svg-icons";
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, index }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [isWatchLater, setIsWatchLater] = useState(false);
+
     useEffect(() => {
-        axios.get("/api/titles/favorite/")
+        const token = localStorage.getItem("accessToken");
+        if (!token) return;
+
+        axios.get("http://localhost:8000/api/titles/favorite/", {
+            headers: { Authorization: `Bearer ${token}` }
+        })
             .then((response) => {
                 if (response.data.some(favMovie => favMovie.imdbId === movie.imdbId)) {
                     setIsFavorite(true);
                 }
-            });
-
-        axios.get("/api/titles/watchlater/")
+            })
+            .catch((error) => console.error("Error fetching favorites:", error));
+        axios.get("http://localhost:8000/api/titles/watchlater/", {
+            headers: { Authorization: `Bearer ${token}` }
+        })
             .then((response) => {
                 if (response.data.some(watchMovie => watchMovie.imdbId === movie.imdbId)) {
                     setIsWatchLater(true);
                 }
-            });
+            })
+            .catch((error) => console.error("Error fetching watch later:", error));
     }, [movie]);
 
     const handleClick = (type) => {
-        const url = `/api/titles/${type}/${movie.imdbId}`;
+        const token = localStorage.getItem("accessToken");
+        if (!token) return;
+        const url = `http://localhost:8000/api/titles/${type}/${movie.imdbId}`;
         const toggleState = type === "favorite" ? setIsFavorite : setIsWatchLater;
         const stateValue = type === "favorite" ? isFavorite : isWatchLater;
+
         axios({
             method: stateValue ? "delete" : "post",
             url: url,
+            headers: { Authorization: `Bearer ${token}` }
         })
             .then(() => toggleState(!stateValue))
             .catch((error) => console.error(`Error updating ${type}:`, error));
     };
 
     return (
-        <li className="movie-card">
+        <li className="movie-card" key={`${movie.imdbId}-${index}`}>
             <h3>{movie.title}</h3>
             <p>{movie.synopsis}</p>
             <div className="movie-icons">
@@ -44,8 +57,8 @@ const MovieCard = ({ movie }) => {
                 <FontAwesomeIcon icon={faClock} className={isWatchLater ? "active" : ""} onClick={() => handleClick("watchlater")} />
             </div>
             <ul>
-                {movie.genres.map((genre, index) => (
-                    <li key={index} className="tag">{genre}</li>
+                {movie.genres.map((genre, genreIndex) => (
+                    <li key={`${movie.imdbId}-${genreIndex}`} className="tag">{genre}</li>
                 ))}
             </ul>
         </li>
