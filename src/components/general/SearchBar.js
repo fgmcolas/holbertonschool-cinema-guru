@@ -8,7 +8,7 @@ const SearchBar = ({ title, setTitle }) => {
 
     return (
         <div className="input-container">
-            <input type="text" placeholder="Search..." value={title} onChange={handleInput} />
+            <input type="text" placeholder="Search Movies" value={title} onChange={handleInput} />
         </div>
     );
 };
