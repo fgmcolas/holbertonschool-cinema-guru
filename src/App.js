@@ -10,19 +10,10 @@ function App() {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-
     if (accessToken) {
-      axios
-        .post("/api/auth/", {}, { headers: { Authorization: `Bearer ${accessToken}` } })
-        .then((response) => {
-          setIsLoggedIn(true);
-          setUserUsername(response.data.username);
-        })
-        .catch((error) => {
-          console.error("Authentication failed:", error);
-          setIsLoggedIn(false);
-          setUserUsername("");
-        });
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
     }
   }, []);
 
