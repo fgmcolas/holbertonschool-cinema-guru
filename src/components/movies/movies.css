@@ -1,41 +1,53 @@
-.tag {
-  display: inline-block;
-  padding: 5px 10px;
-  margin: 5px;
-  border-radius: 15px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.tag.selected {
-  background-color: #ff4b5c;
-}
-
-.filter-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.movie-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 30px;
 }
 
 .movie-card {
+  background: #333;
   padding: 15px;
   border-radius: 10px;
-  background: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  position: relative;
 }
 
 .movie-card h3 {
-  margin: 10px 0;
+  font-size: 18px;
+  margin: 0;
+}
+
+.movie-card p {
+  font-size: 14px;
+  color: #bbb;
 }
 
 .movie-icons {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.movie-icons svg {
   cursor: pointer;
+  color: white;
 }
 
 .movie-icons .active {
-  color: gold;
+  color: red;
+}
+
+.genre-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.genre-tags span {
+  background: red;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  color: white;
 }
