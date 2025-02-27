@@ -58,7 +58,7 @@
 }
 
 .sidebar {
-  width: 70px;
+  width: 60px;
   background: #8b0000;
   height: 100vh;
   position: fixed;
@@ -67,10 +67,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  z-index: 1;
 }
 
 .sidebar.expanded {
   width: 200px;
+}
+
+.sidebar.expanded li {
+  justify-content: flex-start;
 }
 
 .sidebar ul {
@@ -86,12 +93,40 @@
   padding: 15px;
   cursor: pointer;
   color: white;
+  transition: background 0.3s;
 }
 
-.sidebar li.active {
+.sidebar li:hover {
   background: #b00020;
 }
 
-.sidebar .toggle-btn {
-  cursor: pointer;
+.sidebar li span {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.activities {
+  background: #222;
+  margin-top: 10px;
+}
+
+.activities-title {
+  text-align: start;
+  font-size: 20px;
+  padding-left: 10px;
+  font-weight: bold;
+  text-decoration: underline;
+  color: white;
+}
+
+.activities p {
+  padding: 0px 10px 0px 10px ;
+}
+
+.activities ul {
+  list-style: none;
+}
+
+.activities ul li:hover {
+  background: none !important;
 }
