@@ -7,6 +7,11 @@ import { faHeart, faClock } from "@fortawesome/free-solid-svg-icons";
 const MovieCard = ({ movie }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [isWatchLater, setIsWatchLater] = useState(false);
+    const fallbackImage = "https://streaming1.cigre.org/view/img/notfound_portrait.jpg";
+
+    const imageUrl = movie.imageurls && movie.imageurls.length > 0
+        ? movie.imageurls[0]
+        : fallbackImage;
 
     useEffect(() => {
         const token = localStorage.getItem("accessToken");
@@ -49,22 +54,30 @@ const MovieCard = ({ movie }) => {
     return (
         <div className="movie-card">
             <div className="movie-image">
-                <img src={movie.imageUrl || "https://via.placeholder.com/300x450"} alt={movie.title} />
+                <img
+                    src={imageUrl}
+                    alt={movie.title}
+                    onError={(e) => e.target.src = fallbackImage}
+                />
+                <div className="movie-title-overlay">
+                    <p className="movie-title">{movie.title}</p>
+                </div>
                 <div className="movie-icons">
                     <FontAwesomeIcon
                         icon={faHeart}
                         className={`icon ${isFavorite ? "active" : ""}`}
                         onClick={() => handleClick("favorite")}
+                        aria-label="Add to favorites"
                     />
                     <FontAwesomeIcon
                         icon={faClock}
                         className={`icon ${isWatchLater ? "active" : ""}`}
                         onClick={() => handleClick("watchlater")}
+                        aria-label="Add to watch later"
                     />
                 </div>
             </div>
             <div className="movie-details">
-                <h3 className="movie-title">{movie.title}</h3>
                 <p className="movie-synopsis">{movie.synopsis}</p>
                 <div className="movie-genres">
                     {movie.genres.map((genre, index) => (
