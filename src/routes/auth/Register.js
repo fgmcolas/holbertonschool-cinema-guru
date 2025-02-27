@@ -5,19 +5,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../components/general/Button";
 
-const Register = ({ setIsLoggedIn, setUserUsername }) => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+const Register = ({ username, password, setUsername, setPassword, setIsLoggedIn, setUserUsername }) => {
+    const [errorMessage, setErrorMessage] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        axios.post("http://localhost:8000/api/auth/register", { username, password })
-            .then((response) => {
-                localStorage.setItem("accessToken", response.data.token);
+        try {
+            const response = await axios.post("http://localhost:8000/api/auth/register", { username, password });
+
+            if (response.data.accessToken) {
+                localStorage.setItem("accessToken", response.data.accessToken);
+                localStorage.setItem("username", username);
                 setUserUsername(username);
                 setIsLoggedIn(true);
-            })
-            .catch((error) => console.error("Registration failed:", error));
+            } else {
+                setErrorMessage("Registration failed, missing token.");
+            }
+        } catch (error) {
+            console.error("Registration failed:", error);
+            setErrorMessage("Could not register. Try again.");
+        }
     };
 
     return (
@@ -36,12 +43,8 @@ const Register = ({ setIsLoggedIn, setUserUsername }) => {
             <div className="input-group">
                 <input className="auth-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </div>
-            <Button
-                label="Sign Up"
-                icon={faKey}
-                className="auth-button"
-                onClick={handleSubmit}
-            />
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            <Button label="Sign Up" className="auth-button" type="submit" />
         </form>
     );
 };
