@@ -34,9 +34,9 @@ const HomePage = () => {
                 },
                 headers: { Authorization: `Bearer ${token}` }
             });
-
             if (response.data.titles?.length > 0) {
                 setMovies(response.data.titles);
+                setErrorMessage("");
             } else {
                 setErrorMessage("No movies found.");
             }
