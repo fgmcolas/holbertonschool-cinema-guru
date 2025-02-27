@@ -16,7 +16,7 @@ body {
 
 .input-container input {
   padding: 8px;
-  border: 1px solid #E31C25;
+  border: 1px solid #e31c25;
   background: #222;
   color: white;
   border-radius: 5px;
@@ -45,9 +45,25 @@ body {
 .filters {
   display: flex;
   gap: 50px;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: flex-end;
+  width: auto;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
   width: 100%;
 }
+
+
+.filters select {
+  text-align: center;
+  min-width: 150px;
+}
+
 
 .filters input,
 .filters select {
@@ -98,9 +114,12 @@ body {
   justify-content: flex-start;
   max-width: 33%;
   margin-left: auto;
+  list-style: none;
+  padding: 0;
 }
 
 .tag {
+  display: inline-block;
   padding: 6px 12px;
   border: 2px solid red;
   border-radius: 20px;
