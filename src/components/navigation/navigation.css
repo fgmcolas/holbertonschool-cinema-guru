@@ -104,29 +104,3 @@
   margin-left: 10px;
   font-size: 16px;
 }
-
-.activities {
-  background: #222;
-  margin-top: 10px;
-}
-
-.activities-title {
-  text-align: start;
-  font-size: 20px;
-  padding-left: 10px;
-  font-weight: bold;
-  text-decoration: underline;
-  color: white;
-}
-
-.activities p {
-  padding: 0px 10px 0px 10px ;
-}
-
-.activities ul {
-  list-style: none;
-}
-
-.activities ul li:hover {
-  background: none !important;
-}
