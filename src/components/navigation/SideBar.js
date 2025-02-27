@@ -9,7 +9,9 @@ import { faFolder, faStar, faClock } from "@fortawesome/free-solid-svg-icons";
 const SideBar = () => {
     const [selected, setSelected] = useState("home");
     const [activities, setActivities] = useState([]);
+    const [isExpanded, setIsExpanded] = useState(false);
     const navigate = useNavigate();
+
     const setPage = (pageName) => {
         setSelected(pageName);
         navigate(`/${pageName}`);
@@ -29,18 +31,36 @@ const SideBar = () => {
     }, []);
 
     return (
-        <nav className="sidebar">
+        <nav
+            className={`sidebar ${isExpanded ? "expanded" : ""}`}
+            onMouseEnter={() => setIsExpanded(true)}
+            onMouseLeave={() => setIsExpanded(false)}
+        >
             <ul>
                 <li className={selected === "home" ? "active" : ""} onClick={() => setPage("home")}>
-                    <FontAwesomeIcon icon={faFolder} /> Library
+                    <FontAwesomeIcon icon={faFolder} />
+                    {isExpanded && <span>Home</span>}
                 </li>
                 <li className={selected === "favorites" ? "active" : ""} onClick={() => setPage("favorites")}>
-                    <FontAwesomeIcon icon={faStar} /> Favorites
+                    <FontAwesomeIcon icon={faStar} />
+                    {isExpanded && <span>Favorites</span>}
                 </li>
                 <li className={selected === "watchlater" ? "active" : ""} onClick={() => setPage("watchlater")}>
-                    <FontAwesomeIcon icon={faClock} /> Watch Later
+                    <FontAwesomeIcon icon={faClock} />
+                    {isExpanded && <span>Watch Later</span>}
                 </li>
             </ul>
+
+            {isExpanded && (
+                <div className="activities">
+                    <h3 className="activities-title">Latest Activities</h3>
+                    <ul>
+                        {activities.slice(0, 10).map((activity, index) => (
+                            <Activity key={index} activity={activity} />
+                        ))}
+                    </ul>
+                </div>
+            )}
         </nav>
     );
 };
