@@ -4,12 +4,12 @@
   align-items: center;
   height: 100vh;
   margin-top: -70px;
-  background-color: #1e1e1e;
+  background-color: #222222;
 }
 
 .auth-box {
   background: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px #1C1C1C;
   height: 361px;
   width: 450px;
   text-align: center;
@@ -22,23 +22,34 @@
 .auth-tabs {
   display: flex;
   justify-content: space-between;
-  background: #8b0000;
+  background: #E31C25;
   width: 100%;
+  border: none;
+  padding: 0;
 }
 
 .auth-tabs button {
   width: 50%;
   border: none;
-  background: transparent;
   color: white;
   font-size: 16px;
   cursor: pointer;
   padding: 20px;
   text-align: center;
+  outline: none;
+  border-radius: 0;
+  margin: 0;
 }
 
 .auth-tabs button.active {
-  background: #b00020;
+  background: #BB000E;
+  border: none;
+  border-radius: 0;
+}
+
+.auth-tabs button:focus,
+.auth-tabs button:active {
+  outline: none;
 }
 
 .auth-form {
@@ -62,6 +73,10 @@
   gap: 8px;
 }
 
+.input-label .input-icon {
+  color:rgba(0, 0, 0, 0.4);
+}
+
 .input-group {
   display: flex;
   align-items: center;
@@ -73,7 +88,7 @@
 .auth-input {
   width: 100%;
   border: none;
-  border-bottom: 2px solid #b00020;
+  border-bottom: 2px solid #BB000E;
   background: transparent;
   outline: none;
   font-size: 16px;
@@ -93,7 +108,7 @@
   justify-content: center;
   gap: 8px;
   white-space: nowrap;
-  background: #b00020;
+  background: #BB000E;
   color: white;
   border: none;
   font-size: 15px;
@@ -102,5 +117,5 @@
 }
 
 .auth-button:hover {
-  background: #8b0000;
+  background: #BB000E;
 }
