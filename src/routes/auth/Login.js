@@ -5,26 +5,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../components/general/Button";
 
-const Login = ({ setIsLoggedIn, setUserUsername }) => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+const Login = ({ username, password, setUsername, setPassword, setIsLoggedIn, setUserUsername }) => {
     const [errorMessage, setErrorMessage] = useState("");
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        axios.post("http://localhost:8000/api/auth/login", { username, password })
-            .then((response) => {
-                if (response.data.accessToken) {
-                    localStorage.setItem("accessToken", response.data.accessToken);
-                    localStorage.setItem("username", username);
-                    setUserUsername(username);
-                    setIsLoggedIn(true);
-                } else {
-                    setErrorMessage("Invalid login response, missing token.");
-                }
-            })
-            .catch((error) => {
-                console.error("Login failed:", error);
-            });
+        try {
+            const response = await axios.post("http://localhost:8000/api/auth/login", { username, password });
+
+            if (response.data.accessToken) {
+                localStorage.setItem("accessToken", response.data.accessToken);
+                localStorage.setItem("username", username);
+                setUserUsername(username);
+                setIsLoggedIn(true);
+            } else {
+                setErrorMessage("Invalid login response, missing token.");
+            }
+        } catch (error) {
+            console.error("Login failed:", error);
+            setErrorMessage("Incorrect username or password.");
+        }
     };
 
     return (
@@ -56,12 +56,7 @@ const Login = ({ setIsLoggedIn, setUserUsername }) => {
                 />
             </div>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
-            <Button
-                label="Sign In"
-                icon={faKey}
-                className="auth-button"
-                type="submit"
-            />
+            <Button label="Sign In" className="auth-button" type="submit" />
         </form>
     );
 };
