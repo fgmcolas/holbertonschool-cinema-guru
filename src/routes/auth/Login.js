@@ -24,7 +24,6 @@ const Login = ({ setIsLoggedIn, setUserUsername }) => {
             })
             .catch((error) => {
                 console.error("Login failed:", error);
-                setErrorMessage("Login failed. Please check your credentials.");
             });
     };
 
