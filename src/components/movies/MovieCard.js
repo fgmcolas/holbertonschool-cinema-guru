@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./movies.css";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faClock } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const MovieCard = ({ movie }) => {
     const [isFavorite, setIsFavorite] = useState(false);
@@ -63,17 +63,17 @@ const MovieCard = ({ movie }) => {
                     <p className="movie-title">{movie.title}</p>
                 </div>
                 <div className="movie-icons">
-                    <FontAwesomeIcon
-                        icon={faHeart}
-                        className={`icon ${isFavorite ? "active" : ""}`}
-                        onClick={() => handleClick("favorite")}
-                        aria-label="Add to favorites"
-                    />
-                    <FontAwesomeIcon
+                <FontAwesomeIcon
                         icon={faClock}
                         className={`icon ${isWatchLater ? "active" : ""}`}
                         onClick={() => handleClick("watchlater")}
                         aria-label="Add to watch later"
+                    />
+                    <FontAwesomeIcon
+                        icon={faStar}
+                        className={`icon ${isFavorite ? "active" : ""}`}
+                        onClick={() => handleClick("favorite")}
+                        aria-label="Add to favorites"
                     />
                 </div>
             </div>
