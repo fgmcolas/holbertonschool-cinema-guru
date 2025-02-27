@@ -4,7 +4,7 @@ import "./navigation.css";
 import Activity from "../Activity";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFolder, faStar, faClock } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faStar, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const SideBar = () => {
     const [selected, setSelected] = useState("home");
@@ -14,7 +14,7 @@ const SideBar = () => {
 
     const setPage = (pageName) => {
         setSelected(pageName);
-        navigate(`/${pageName}`);
+        navigate(pageName === "home" ? "/" : `/${pageName}`);
     };
 
     useEffect(() => {
@@ -22,11 +22,9 @@ const SideBar = () => {
         if (!token) return;
 
         axios.get("http://localhost:8000/api/activity", {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
         })
-            .then((response) => {
-                setActivities(response.data);
-            })
+            .then((response) => setActivities(response.data))
             .catch((error) => console.error("Failed to fetch activities:", error));
     }, []);
 
@@ -36,9 +34,9 @@ const SideBar = () => {
             onMouseEnter={() => setIsExpanded(true)}
             onMouseLeave={() => setIsExpanded(false)}
         >
-            <ul>
+            <ul className="sidebar-nav">
                 <li className={selected === "home" ? "active" : ""} onClick={() => setPage("home")}>
-                    <FontAwesomeIcon icon={faFolder} />
+                    <FontAwesomeIcon icon={faHome} />
                     {isExpanded && <span>Home</span>}
                 </li>
                 <li className={selected === "favorites" ? "active" : ""} onClick={() => setPage("favorites")}>
@@ -51,7 +49,7 @@ const SideBar = () => {
                 </li>
             </ul>
 
-            {isExpanded && (
+            {isExpanded && activities.length > 0 && (
                 <div className="activities">
                     <h3 className="activities-title">Latest Activities</h3>
                     <ul>
