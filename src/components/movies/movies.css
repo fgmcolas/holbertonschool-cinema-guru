@@ -56,29 +56,6 @@
   padding-left: 8px;
 }
 
-.movie-icons {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  gap: 10px;
-}
-
-.icon {
-  font-size: 19px;
-  color: white;
-  cursor: pointer;
-  transition: color 0.3s ease-in-out;
-}
-
-.icon.active {
-  color: #E31C25;
-}
-
-.icon:hover {
-  color: #E31C25;
-}
-
 .movie-details {
   padding: 8px;
   text-align: left;
@@ -113,55 +90,4 @@
   padding: 4px 8px;
   border-radius: 15px;
   font-weight: bold;
-}
-
-.tags-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: flex-start;
-  max-width: 33%;
-  margin-left: auto;
-}
-
-.tag {
-  padding: 6px 12px;
-  border: 2px solid red;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: bold;
-  color: white;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  text-align: center;
-}
-
-.tag.selected {
-  background: red;
-  color: white;
-}
-
-.input-container {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  width: 100%;
-}
-
-.input-container input {
-  padding: 8px;
-  border: 1px solid #E31C25;
-  background: #222;
-  color: white;
-  border-radius: 5px;
-  text-align: center;
-  width: 100%;
-}
-
-.input-container label {
-  font-size: 14px;
-  color: white;
-  text-align: start;
-  margin-top: 20px;
 }
