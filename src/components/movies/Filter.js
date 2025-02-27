@@ -13,20 +13,31 @@ const genresList = [
 const Filter = ({ minYear, setMinYear, maxYear, setMaxYear, sort, setSort, genres, setGenres, title, setTitle }) => {
     return (
         <div className="filter-container">
-            <SearchBar title={title} setTitle={setTitle} />
-            <Input label="Min Date" type="number" value={minYear} setValue={setMinYear} />
-            <Input label="Max Date" type="number" value={maxYear} setValue={setMaxYear} />
-            <SelectInput
-                label="Sort"
-                options={["latest", "oldest", "highestrated", "lowestrated"]}
-                value={sort}
-                setValue={setSort}
-            />
-            <ul className="tags-container">
+            <div className="filter-left">
+                <SearchBar title={title} setTitle={setTitle} className="search-bar" />
+                <div className="filters">
+                    <Input label="Min Date:" type="number" value={minYear} setValue={setMinYear} className="filter-input" />
+                    <Input label="Max Date:" type="number" value={maxYear} setValue={setMaxYear} className="filter-input" />
+                    <SelectInput
+                        label="Sort:"
+                        options={[
+                            { value: "default", label: "Default" },
+                            { value: "latest", label: "Latest" },
+                            { value: "oldest", label: "Oldest" },
+                            { value: "highestrated", label: "Highest Rated" },
+                            { value: "lowestrated", label: "Lowest Rated" }
+                        ]}
+                        value={sort}
+                        setValue={setSort}
+                        className="filter-input"
+                    />
+                </div>
+            </div>
+            <div className="tags-container">
                 {genresList.map((genre, index) => (
-                    <Tag key={index} genre={genre} filter={true} genres={genres} setGenres={setGenres} />
+                    <Tag key={index} genre={genre} genres={genres} setGenres={setGenres} />
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };
