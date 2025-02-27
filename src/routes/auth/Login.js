@@ -15,6 +15,7 @@ const Login = ({ setIsLoggedIn, setUserUsername }) => {
             .then((response) => {
                 if (response.data.accessToken) {
                     localStorage.setItem("accessToken", response.data.accessToken);
+                    localStorage.setItem("username", username);
                     setUserUsername(username);
                     setIsLoggedIn(true);
                 } else {
