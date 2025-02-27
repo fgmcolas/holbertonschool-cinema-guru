@@ -1,13 +1,35 @@
 import React, { useState } from "react";
 import "./auth.css";
-import Login from "./Login";
-import Register from "./Register";
+import axios from "axios";
 import Button from "../../components/general/Button";
 
 const Authentication = ({ setIsLoggedIn, setUserUsername }) => {
     const [_switch, setSwitch] = useState(true);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const endpoint = _switch ? "/api/auth/login" : "/api/auth/register";
+        try {
+            const response = await axios.post(endpoint, { username, password });
+
+            if (response.data.accessToken) {
+                localStorage.setItem("accessToken", response.data.accessToken);
+                setUserUsername(username);
+                setIsLoggedIn(true);
+            } else {
+                setErrorMessage("Authentication failed, no token received.");
+            }
+        } catch (error) {
+            console.error("Authentication error:", error);
+            setErrorMessage(
+                error.response?.data?.message || "Authentication failed. Please try again."
+            );
+        }
+    };
 
     return (
         <div className="auth-container">
@@ -25,25 +47,30 @@ const Authentication = ({ setIsLoggedIn, setUserUsername }) => {
                     />
                 </div>
                 <h2 className="auth-title">{_switch ? "Sign in" : "Sign up"} with your account</h2>
-                {_switch ? (
-                    <Login
-                        username={username}
-                        password={password}
-                        setUsername={setUsername}
-                        setPassword={setPassword}
-                        setIsLoggedIn={setIsLoggedIn}
-                        setUserUsername={setUserUsername}
+                <form className="auth-form" onSubmit={handleSubmit}>
+                    <input
+                        className="auth-input"
+                        type="text"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
                     />
-                ) : (
-                    <Register
-                        username={username}
-                        password={password}
-                        setUsername={setUsername}
-                        setPassword={setPassword}
-                        setIsLoggedIn={setIsLoggedIn}
-                        setUserUsername={setUserUsername}
+                    <input
+                        className="auth-input"
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
-                )}
+                    {errorMessage && <p className="error-message">{errorMessage}</p>}
+                    <Button
+                        label={_switch ? "Sign In" : "Sign Up"}
+                        className="auth-button"
+                        type="submit"
+                    />
+                </form>
             </div>
         </div>
     );
