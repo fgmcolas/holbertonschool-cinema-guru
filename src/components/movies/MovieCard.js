@@ -9,32 +9,34 @@ const MovieCard = ({ movie }) => {
     const [isWatchLater, setIsWatchLater] = useState(false);
     const fallbackImage = "https://streaming1.cigre.org/view/img/notfound_portrait.jpg";
 
-    const imageUrl = movie.imageurls && movie.imageurls.length > 0
-        ? movie.imageurls[0]
-        : fallbackImage;
+    const imageUrl = movie.imageurls?.length > 0 ? movie.imageurls[0] : fallbackImage;
 
     useEffect(() => {
-        const token = localStorage.getItem("accessToken");
-        if (!token) return;
+        const fetchMovieStatus = async () => {
+            const token = localStorage.getItem("accessToken");
+            if (!token) return;
 
-        axios.get("http://localhost:8000/api/titles/favorite/", {
-            headers: { Authorization: `Bearer ${token}` }
-        }).then((response) => {
-            if (response.data.some(favMovie => favMovie.imdbId === movie.imdbId)) {
-                setIsFavorite(true);
-            }
-        });
+            try {
+                const [favRes, watchRes] = await Promise.all([
+                    axios.get("http://localhost:8000/api/titles/favorite/", {
+                        headers: { Authorization: `Bearer ${token}` },
+                    }),
+                    axios.get("http://localhost:8000/api/titles/watchlater/", {
+                        headers: { Authorization: `Bearer ${token}` },
+                    })
+                ]);
 
-        axios.get("http://localhost:8000/api/titles/watchlater/", {
-            headers: { Authorization: `Bearer ${token}` }
-        }).then((response) => {
-            if (response.data.some(watchMovie => watchMovie.imdbId === movie.imdbId)) {
-                setIsWatchLater(true);
+                setIsFavorite(favRes.data.some(favMovie => favMovie.imdbId === movie.imdbId));
+                setIsWatchLater(watchRes.data.some(watchMovie => watchMovie.imdbId === movie.imdbId));
+            } catch (error) {
+                console.error("Error fetching movie status:", error);
             }
-        });
+        };
+
+        fetchMovieStatus();
     }, [movie]);
 
-    const handleClick = (type) => {
+    const handleClick = async (type) => {
         const token = localStorage.getItem("accessToken");
         if (!token) return;
 
@@ -42,13 +44,16 @@ const MovieCard = ({ movie }) => {
         const toggleState = type === "favorite" ? setIsFavorite : setIsWatchLater;
         const stateValue = type === "favorite" ? isFavorite : isWatchLater;
 
-        axios({
-            method: stateValue ? "delete" : "post",
-            url: url,
-            headers: { Authorization: `Bearer ${token}` }
-        })
-            .then(() => toggleState(!stateValue))
-            .catch((error) => console.error(`Error updating ${type}:`, error));
+        try {
+            if (stateValue) {
+                await axios.delete(url, { headers: { Authorization: `Bearer ${token}` } });
+            } else {
+                await axios.post(url, {}, { headers: { Authorization: `Bearer ${token}` } });
+            }
+            toggleState(!stateValue);
+        } catch (error) {
+            console.error(`Error updating ${type}:`, error);
+        }
     };
 
     return (
@@ -57,13 +62,13 @@ const MovieCard = ({ movie }) => {
                 <img
                     src={imageUrl}
                     alt={movie.title}
-                    onError={(e) => e.target.src = fallbackImage}
+                    onError={(e) => (e.target.src = fallbackImage)}
                 />
                 <div className="movie-title-overlay">
                     <p className="movie-title">{movie.title}</p>
                 </div>
                 <div className="movie-icons">
-                <FontAwesomeIcon
+                    <FontAwesomeIcon
                         icon={faClock}
                         className={`icon ${isWatchLater ? "active" : ""}`}
                         onClick={() => handleClick("watchlater")}
