@@ -16,20 +16,26 @@ const Filter = ({ minYear, setMinYear, maxYear, setMaxYear, sort, setSort, genre
             <div className="filter-left">
                 <SearchBar title={title} setTitle={setTitle} />
                 <div className="filters">
-                    <Input label="Min Date:" type="number" value={minYear} setValue={setMinYear} className="filter-input" />
-                    <Input label="Max Date:" type="number" value={maxYear} setValue={setMaxYear} className="filter-input" />
-                    <SelectInput
-                        label="Sort:"
-                        options={[
-                            { value: "latest", label: "Latest" },
-                            { value: "oldest", label: "Oldest" },
-                            { value: "highestrated", label: "Highest Rated" },
-                            { value: "lowestrated", label: "Lowest Rated" }
-                        ]}
-                        value={sort}
-                        setValue={setSort}
-                        className="filter-input"
-                    />
+                    <div className="filter-item">
+                        <Input label="Min Date:" type="number" value={minYear} setValue={setMinYear} className="filter-input" />
+                    </div>
+                    <div className="filter-item">
+                        <Input label="Max Date:" type="number" value={maxYear} setValue={setMaxYear} className="filter-input" />
+                    </div>
+                    <div className="filter-item">
+                        <SelectInput
+                            label="Sort:"
+                            options={[
+                                { value: "latest", label: "Latest" },
+                                { value: "oldest", label: "Oldest" },
+                                { value: "highestrated", label: "Highest Rated" },
+                                { value: "lowestrated", label: "Lowest Rated" }
+                            ]}
+                            value={sort}
+                            setValue={setSort}
+                            className="filter-input"
+                        />
+                    </div>
                 </div>
             </div>
             <ul className="tags-container">
