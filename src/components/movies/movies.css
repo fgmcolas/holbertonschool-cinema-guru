@@ -8,7 +8,7 @@
 }
 
 .movie-card {
-  background: #222;
+  background: #2C2C2C;
   color: white;
   overflow: hidden;
   transition: transform 0.2s ease-in-out;
@@ -43,7 +43,7 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background:rgba(0, 0, 0, 0.5);
   text-align: left;
   padding: 8px;
 }
@@ -72,11 +72,11 @@
 }
 
 .icon.active {
-  color: #ff3d3d;
+  color: #E31C25;
 }
 
 .icon:hover {
-  color: #ff3d3d;
+  color: #E31C25;
 }
 
 .movie-details {
@@ -107,10 +107,61 @@
 }
 
 .genre-tag {
-  background: #ff3d3d;
+  background: #E31C25;
   color: white;
   font-size: 15px;
   padding: 4px 8px;
   border-radius: 15px;
   font-weight: bold;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+  max-width: 33%;
+  margin-left: auto;
+}
+
+.tag {
+  padding: 6px 12px;
+  border: 2px solid red;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+}
+
+.tag.selected {
+  background: red;
+  color: white;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.input-container input {
+  padding: 8px;
+  border: 1px solid #E31C25;
+  background: #222;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  width: 100%;
+}
+
+.input-container label {
+  font-size: 14px;
+  color: white;
+  text-align: start;
+  margin-top: 20px;
 }

@@ -7,7 +7,7 @@
   left: 0;
   width: 100vw;
   height: 70px;
-  background: #111;
+  background: #161616;
   color: white;
   z-index: 1000;
 }
@@ -49,17 +49,17 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: red;
+  color: #BB000E;
   font-weight: bold;
 }
 
 .logout-btn:hover {
-  color: darkred;
+  color: #BB000E;
 }
 
 .sidebar {
   width: 60px;
-  background: #8b0000;
+  background: #BB000E;
   height: 100vh;
   position: fixed;
   left: 0;
@@ -97,7 +97,7 @@
 }
 
 .sidebar li:hover {
-  background: #b00020;
+  background: #E31C25;
 }
 
 .sidebar li span {
