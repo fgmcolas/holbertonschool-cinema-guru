@@ -6,6 +6,8 @@ import Button from "../../components/general/Button";
 
 const Authentication = ({ setIsLoggedIn, setUserUsername }) => {
     const [_switch, setSwitch] = useState(true);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
     return (
         <div className="auth-container">
@@ -24,9 +26,23 @@ const Authentication = ({ setIsLoggedIn, setUserUsername }) => {
                 </div>
                 <h2 className="auth-title">{_switch ? "Sign in" : "Sign up"} with your account</h2>
                 {_switch ? (
-                    <Login setIsLoggedIn={setIsLoggedIn} setUserUsername={setUserUsername} />
+                    <Login
+                        username={username}
+                        password={password}
+                        setUsername={setUsername}
+                        setPassword={setPassword}
+                        setIsLoggedIn={setIsLoggedIn}
+                        setUserUsername={setUserUsername}
+                    />
                 ) : (
-                    <Register setIsLoggedIn={setIsLoggedIn} setUserUsername={setUserUsername} />
+                    <Register
+                        username={username}
+                        password={password}
+                        setUsername={setUsername}
+                        setPassword={setPassword}
+                        setIsLoggedIn={setIsLoggedIn}
+                        setUserUsername={setUserUsername}
+                    />
                 )}
             </div>
         </div>
