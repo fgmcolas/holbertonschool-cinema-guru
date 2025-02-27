@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import "./movies.css";
 
 const Tag = ({ genre, filter, genres, setGenres }) => {
-    const isSelected = genres.includes(genre);
+    const [selected, setSelected] = useState(genres.includes(genre));
 
-    const toggleGenre = () => {
-        if (isSelected) {
+    const handleTag = () => {
+        if (selected) {
             setGenres(genres.filter(g => g !== genre));
         } else {
             setGenres([...genres, genre]);
         }
+        setSelected(!selected);
     };
 
     return (
-        <div className={`tag ${isSelected ? "selected" : ""}`} onClick={toggleGenre}>
+        <li className={`tag ${selected ? "selected" : ""}`} onClick={handleTag}>
             {genre}
-        </div>
+        </li>
     );
 };
 
