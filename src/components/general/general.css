@@ -7,6 +7,30 @@ body {
   padding: 0;
 }
 
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.input-container input {
+  padding: 8px;
+  border: 1px solid #E31C25;
+  background: #222;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  width: 100%;
+}
+
+.input-container label {
+  font-size: 14px;
+  color: white;
+  text-align: start;
+  margin-top: 20px;
+}
+
 .filter-container {
   display: flex;
   justify-content: space-between;
@@ -18,32 +42,25 @@ body {
   overflow: hidden;
 }
 
-.filter-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  width: 100%;
-}
-
 .filters {
   display: flex;
-  flex-direction: row;
+  gap: 50px;
   justify-content: space-between;
-  gap: 10px;
   width: 100%;
 }
 
 .filters input,
 .filters select {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid red;
-  background: #222;
+  background: #333;
+  border: none;
+  border-bottom: 1px solid #e31c25;
   color: white;
-  border-radius: 5px;
-  text-align: center;
-  min-width: 120px;
+  padding: 8px;
+  width: 100%;
+  font-size: 14px;
+  outline: none;
+  border-radius: 0;
+  text-align: start;
 }
 
 .search-bar {
@@ -53,10 +70,7 @@ body {
   max-width: 500px;
   padding: 8px 15px;
   border-radius: 20px;
-  border: none;
   background: #333;
-  color: white;
-  outline: none;
   transition: background 0.3s ease-in-out;
 }
 
@@ -77,28 +91,28 @@ body {
   color: black;
 }
 
-.filters {
+.tags-container {
   display: flex;
-  gap: 50px;
-  justify-content: space-between;
-  width: 100%;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+  max-width: 33%;
+  margin-left: auto;
 }
 
-.filters input,
-.filters select {
-  background: #333;
-  border: none;
-  border-bottom: 1px solid #E31C25;
-  color: white;
-  padding: 8px;
-  width: 100%;
+.tag {
+  padding: 6px 12px;
+  border: 2px solid red;
+  border-radius: 20px;
   font-size: 14px;
-  outline: none;
-  border-radius: 0;
-  text-align: start;
+  font-weight: bold;
+  color: white;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
 }
 
-.filters input:focus,
-.filters select:focus {
-  border-bottom: 2px solid #E31C25;
+.tag.selected {
+  background: red;
 }
