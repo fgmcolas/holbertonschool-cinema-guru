@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./dashboard.css";
 import MovieCard from "../../components/movies/MovieCard";
 import Filter from "../../components/movies/Filter";
+import Button from "../../components/general/Button";
 import axios from "axios";
 
 const HomePage = () => {
@@ -11,10 +12,11 @@ const HomePage = () => {
     const [genres, setGenres] = useState([]);
     const [sort, setSort] = useState("");
     const [title, setTitle] = useState("");
+    const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
-    const loadMovies = async () => {
+    const loadMovies = async (pageNumber = 1) => {
         const token = localStorage.getItem("accessToken");
         if (!token) {
             setErrorMessage("You are not authenticated. Please log in.");
@@ -30,18 +32,19 @@ const HomePage = () => {
                     genres: genres.length ? genres.join(",") : "",
                     title,
                     sort,
-                    page: 1
+                    page: pageNumber
                 },
                 headers: { Authorization: `Bearer ${token}` }
             });
+
             if (response.data.titles?.length > 0) {
-                setMovies(response.data.titles);
+                setMovies(prevMovies => (pageNumber === 1 ? response.data.titles : [...prevMovies, ...response.data.titles]));
                 setErrorMessage("");
-            } else {
+            } else if (pageNumber === 1) {
                 setErrorMessage("No movies found.");
             }
         } catch (error) {
-            console.error("Error fetching movies:", error.response);
+            console.error("Error fetching movies:", error);
             setErrorMessage(`Error fetching movies: ${error.response?.status || "Unknown error"}`);
         } finally {
             setLoading(false);
@@ -49,8 +52,8 @@ const HomePage = () => {
     };
 
     useEffect(() => {
-        setMovies([]);
-        loadMovies();
+        setPage(1);
+        loadMovies(1);
     }, [minYear, maxYear, genres, title, sort]);
 
     return (
@@ -69,6 +72,11 @@ const HomePage = () => {
                     <MovieCard key={`${movie.imdbId}-${index}`} movie={movie} />
                 ))}
             </ul>
+            <Button label="Load More..." className="load-more-button" onClick={() => {
+                const nextPage = page + 1;
+                setPage(nextPage);
+                loadMovies(nextPage);
+            }} />
         </div>
     );
 };
