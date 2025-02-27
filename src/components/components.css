@@ -1,0 +1,22 @@
+.activity-item {
+    font-size: 12px;
+    padding: 0px !important;
+    color: white;
+    background: transparent;
+    text-align: start;
+    cursor: default !important;
+}
+
+.activity-username,
+.activity-movie {
+    color: red;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.activity-type,
+.activity-date {
+    color: white;
+    font-weight: normal;
+    font-size: 12px;
+}
