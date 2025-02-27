@@ -9,12 +9,17 @@ function App() {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
+    const storedUsername = localStorage.getItem("username");
     if (accessToken) {
       setIsLoggedIn(true);
+      if (storedUsername) {
+        setUserUsername(storedUsername);
+      }
     } else {
       setIsLoggedIn(false);
     }
   }, []);
+
 
   return (
     <div className="App">
