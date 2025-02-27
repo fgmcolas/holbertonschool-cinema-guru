@@ -1,22 +1,72 @@
 .activity-item {
-    font-size: 12px;
-    padding: 0px !important;
-    color: white;
-    background: transparent;
-    text-align: start;
-    cursor: default !important;
+  font-size: 12px;
+  padding: 0px !important;
+  color: white;
+  background: transparent;
+  text-align: start;
+  cursor: default !important;
+}
+
+.activity-type,
+.activity-date,
+.activity-username,
+.activity-movie {
+  font-weight: normal;
+  font-size: 12px;
 }
 
 .activity-username,
 .activity-movie {
-    color: red;
-    font-weight: normal;
-    font-size: 12px;
+  color: red;
 }
 
 .activity-type,
 .activity-date {
-    color: white;
-    font-weight: normal;
-    font-size: 12px;
+  color: white;
+}
+
+.activities {
+  background: #222;
+  margin-top: 10px;
+}
+
+.activities-title {
+  text-align: start;
+  font-size: 20px;
+  padding-left: 10px;
+  font-weight: bold;
+  text-decoration: underline;
+  color: white;
+}
+
+.activities p {
+  padding: 0px 10px 0px 10px;
+}
+
+.activities ul {
+  list-style: none;
+}
+
+.activities ul li:hover {
+  background: none !important;
+}
+
+.movie-icons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.icon {
+  font-size: 19px;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.icon.active,
+.icon:hover {
+  color: #E31C25;
 }
