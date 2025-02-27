@@ -38,11 +38,12 @@
   text-align: center;
   outline: none;
   border-radius: 0;
+  background: #BB000E;
   margin: 0;
 }
 
 .auth-tabs button.active {
-  background: #BB000E;
+  background: #E31C25;
   border: none;
   border-radius: 0;
 }
